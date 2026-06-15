@@ -9,14 +9,24 @@ const profile = {
     "Building scalable web applications, real-time systems, and innovative digital experiences.",
   intro:
     "I am a Computer Engineering graduate from LDRP Institute of Technology and Research, Gujarat, India. I build production-grade MERN stack apps, real-time products, and Android solutions with a strong focus on clarity, performance, and reliability.",
-  email: "hello@hetrajsolanki.dev",
-  phone: "+91 00000 00000",
+  email: "hetrajsolanki148@gmail.com",
+  phone: "+91 63524 26430",
   github: "https://github.com/hetu-14",
   linkedin: "https://www.linkedin.com/in/hetraj-solanki-06615b256/",
-  leetcode: null,
-  codechef: null,
-  codeforces: null,
+  leetcode: "https://leetcode.com/u/hetu_14/",
+  codechef: "https://www.codechef.com/users/hetu_14",
+  codeforces: "https://codeforces.com/profile/hetraj",
 };
+
+const experience = [
+  {
+    role: "Software Developer Trainee",
+    company: "Torrent Gas",
+    period: "Public LinkedIn profile",
+    description:
+      "Public LinkedIn search results confirm this role. The profile page itself is restricted, so I am only surfacing the verified role/company combination here.",
+  },
+];
 
 const stats = [
   { value: "3+", label: "Major Projects" },
@@ -241,7 +251,7 @@ export default function Home() {
               Hetraj Solanki
             </a>
             <div className="flex flex-wrap items-center gap-2 text-sm text-slate-300">
-              {["about", "skills", "projects", "achievements", "education", "contact"].map((item) => (
+              {["about", "experience", "skills", "projects", "achievements", "education", "contact"].map((item) => (
                 <a
                   key={item}
                   href={`#${item}`}
@@ -418,6 +428,44 @@ export default function Home() {
               ))}
             </div>
           </motion.article>
+        </motion.section>
+
+        <motion.section
+          id="experience"
+          variants={motionGroup}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.18 }}
+          className="mt-20 space-y-6"
+        >
+          <motion.div variants={motionItem}>
+            <SectionTitle
+              eyebrow="Experience"
+              title="Verified public LinkedIn role."
+              body="The public profile snippet confirms the current role, so I keep this section precise and source-aligned."
+            />
+          </motion.div>
+
+          <div className="grid gap-4">
+            {experience.map((item) => (
+              <motion.article
+                key={`${item.company}-${item.role}`}
+                variants={motionItem}
+                className="rounded-[1.75rem] border border-white/10 bg-white/8 p-5 backdrop-blur-2xl shadow-[0_24px_70px_rgba(2,6,23,0.34)]"
+              >
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <h3 className="text-xl font-semibold text-white">{item.role}</h3>
+                    <p className="mt-2 text-sm font-medium text-cyan-200">{item.company}</p>
+                    <p className="mt-3 text-sm leading-7 text-slate-300">{item.description}</p>
+                  </div>
+                  <span className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-sm text-slate-300">
+                    {item.period}
+                  </span>
+                </div>
+              </motion.article>
+            ))}
+          </div>
         </motion.section>
 
         <motion.section
