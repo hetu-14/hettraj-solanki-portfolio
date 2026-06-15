@@ -244,10 +244,10 @@ export default function Home() {
           initial={heroInitial}
           animate={heroAnimate}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="sticky top-3 z-30 mb-8 rounded-full border border-white/10 bg-white/8 px-4 py-3 backdrop-blur-xl shadow-[0_18px_70px_rgba(2,6,23,0.55)]"
+          className="sticky top-3 z-30 mb-8 rounded-[1.75rem] border border-white/10 bg-white/8 px-4 py-3 backdrop-blur-xl shadow-[0_18px_70px_rgba(2,6,23,0.55)] sm:rounded-full"
         >
-          <nav className="flex flex-wrap items-center justify-between gap-3">
-            <a href="#top" className="text-sm font-semibold tracking-[0.34em] uppercase text-white">
+          <nav className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+            <a href="#top" className="text-sm font-semibold tracking-[0.26em] uppercase text-white sm:tracking-[0.34em]">
               Hetraj Solanki
             </a>
             <div className="flex flex-wrap items-center gap-2 text-sm text-slate-300">
@@ -255,7 +255,7 @@ export default function Home() {
                 <a
                   key={item}
                   href={`#${item}`}
-                  className="rounded-full px-3 py-1 transition hover:bg-white/10 hover:text-white"
+                  className="rounded-full px-2.5 py-1 transition hover:bg-white/10 hover:text-white sm:px-3"
                 >
                   {item}
                 </a>
@@ -278,7 +278,7 @@ export default function Home() {
             </div>
 
             <div className="space-y-4">
-              <h1 className="font-display max-w-4xl text-5xl leading-[0.92] tracking-[-0.06em] text-balance sm:text-6xl lg:text-8xl">
+              <h1 className="font-display max-w-4xl text-4xl leading-[0.98] tracking-[-0.06em] text-balance sm:text-6xl lg:text-8xl">
                 {profile.title}
               </h1>
               <p className="max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
@@ -289,12 +289,12 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <motion.a
                 whileHover={reduceMotion ? undefined : { y: -2, scale: 1.01 }}
                 whileTap={reduceMotion ? undefined : { scale: 0.98 }}
                 href="#projects"
-                className="inline-flex items-center gap-2 rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 shadow-[0_18px_40px_rgba(34,211,238,0.28)] transition"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 shadow-[0_18px_40px_rgba(34,211,238,0.28)] transition sm:w-auto"
               >
                 View Projects
                 <ArrowIcon />
@@ -303,20 +303,20 @@ export default function Home() {
                 whileHover={reduceMotion ? undefined : { y: -2, scale: 1.01 }}
                 whileTap={reduceMotion ? undefined : { scale: 0.98 }}
                 href="#contact"
-                className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/8 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/12"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/12 bg-white/8 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/12 sm:w-auto"
               >
                 Contact Me
                 <MailIcon />
               </motion.a>
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-transparent px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-white/24 hover:bg-white/6"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/12 bg-transparent px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-white/24 hover:bg-white/6 sm:w-auto"
               >
                 Download Resume
               </a>
             </div>
 
-            <motion.div variants={motionGroup} className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            <motion.div variants={motionGroup} className="grid gap-3 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
               {stats.map((stat) => (
                 <motion.article
                   key={stat.label}
@@ -484,7 +484,7 @@ export default function Home() {
             />
           </motion.div>
 
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {skillGroups.map((group) => (
               <motion.article
                 key={group.title}
@@ -523,7 +523,7 @@ export default function Home() {
             />
           </motion.div>
 
-          <div className="grid gap-4 xl:grid-cols-3">
+          <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
             {projects.map((project) => (
               <motion.article
                 key={project.name}
@@ -602,7 +602,7 @@ export default function Home() {
             />
           </motion.div>
 
-          <div className="grid gap-4 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {achievements.map((item) => (
               <motion.article
                 key={item.title}
