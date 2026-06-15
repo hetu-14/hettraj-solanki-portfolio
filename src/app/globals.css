@@ -17,6 +17,178 @@ body {
   color: #e5eefb;
 }
 
+.guide-shell {
+  min-height: 100dvh;
+  padding: 16px;
+  background:
+    radial-gradient(circle at top, rgba(0, 212, 170, 0.18), transparent 24%),
+    radial-gradient(circle at 80% 10%, rgba(88, 166, 255, 0.15), transparent 20%),
+    linear-gradient(180deg, #020617 0%, #08101f 100%);
+}
+
+.topbar,
+.page,
+.notice,
+.phase-card,
+.card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(10, 16, 31, 0.72);
+  backdrop-filter: blur(20px);
+}
+
+.topbar {
+  position: sticky;
+  top: 16px;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 20px;
+  padding: 14px 16px;
+}
+
+.brand {
+  color: #00d4aa;
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tab {
+  border: 0;
+  border-radius: 999px;
+  padding: 9px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #b9c5d3;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: rgba(0, 212, 170, 0.14);
+  color: #7ff4dd;
+}
+
+.page {
+  margin-top: 18px;
+  border-radius: 24px;
+  padding: 22px;
+}
+
+.hero h1,
+.section-title {
+  margin: 0;
+  font-family: var(--font-display), Georgia, serif;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.hero h1 {
+  font-size: clamp(2.6rem, 8vw, 5.8rem);
+}
+
+.hero h1 span {
+  color: #00d4aa;
+}
+
+.eyebrow,
+.phase-head span {
+  color: #00d4aa;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  font-size: 0.72rem;
+}
+
+.lede,
+.phase-head em,
+.card p,
+.resource-chip span,
+.notice {
+  color: #95a3b5;
+}
+
+.stats,
+.phase-grid,
+.grid-cards {
+  display: grid;
+  gap: 14px;
+}
+
+.stats {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  margin-top: 20px;
+}
+
+.stats div {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 14px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.stats strong,
+.card h3,
+.phase-head h2 {
+  color: #fff;
+}
+
+.stats strong {
+  display: block;
+  font-size: 1.5rem;
+}
+
+.notice {
+  margin-top: 18px;
+  border-radius: 18px;
+  padding: 16px 18px;
+}
+
+.phase-grid,
+.grid-cards {
+  margin-top: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.phase-card,
+.card {
+  border-radius: 20px;
+  padding: 18px;
+}
+
+.phase-card ul {
+  margin: 14px 0 0;
+  padding-left: 18px;
+}
+
+.phase-card li + li {
+  margin-top: 8px;
+}
+
+.resource-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.resource-chip {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.resource-chip strong {
+  display: block;
+  color: #fff;
+}
+
 .font-display {
   font-family: var(--font-display), Georgia, serif;
 }

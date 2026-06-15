@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>DevOps Engineer — Universal Starter Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #1c2330;
+    --border: #30363d;
+    --accent: #00d4aa;
+    --accent2: #ff6b35;
+    --accent3: #7c3aed;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --green: #3fb950;
+    --yellow: #d29922;
+    --red: #f85149;
+    --blue: #58a6ff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── TOP NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(13,17,23,0.95);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 52px;
+    backdrop-filter: blur(10px);
+  }
+  .nav-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-right: 12px;
+    white-space: nowrap;
+  }
+  .nav-tabs {
+    display: flex;
+    gap: 2px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .nav-tab {
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--muted);
+    transition: all 0.15s;
+    white-space: nowrap;
+    border: none;
+    background: none;
+    font-family: 'Inter', sans-serif;
+  }
+  .nav-tab:hover { color: var(--text); background: var(--surface); }
+  .nav-tab.active { color: var(--accent); background: rgba(0,212,170,0.1); }
+
+  /* ── LAYOUT ── */
+  .page { display: none; padding: 32px 24px; max-width: 960px; margin: 0 auto; }
+  .page.active { display: block; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 48px 0 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+  }
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero p {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 620px;
+    line-height: 1.7;
+  }
+  .stat-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 20px;
+    min-width: 120px;
+  }
+  .stat-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* ── PHASE CARDS ── */
+  .phase-grid { display: grid; gap: 16px; }
+  .phase {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--surface);
+    transition: border-color 0.2s;
+  }
+  .phase:hover { border-color: var(--accent); }
+  .phase-header {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .phase-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    background: rgba(0,212,170,0.1);
+    border: 1px solid rgba(0,212,170,0.2);
+    border-radius: 6px;
+    padding: 3px 8px;
+    white-space: nowrap;
+    font-weight: 700;
+  }
+  .phase-title { font-size: 15px; font-weight: 600; flex: 1; }
+  .phase-badge {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .badge-beginner { background: rgba(63,185,80,0.15); color: var(--green); }
+  .badge-intermediate { background: rgba(210,153,34,0.15); color: var(--yellow); }
+  .badge-advanced { background: rgba(248,81,73,0.15); color: var(--red); }
+  .phase-chevron { color: var(--muted); font-size: 12px; transition: transform 0.2s; }
+  .phase.open .phase-chevron { transform: rotate(90deg); }
+
+  .phase-body { display: none; padding: 0 20px 20px; }
+  .phase.open .phase-body { display: block; }
+
+  .phase-desc { color: var(--muted); font-size: 13px; margin-bottom: 16px; padding-top: 4px; }
+
+  /* ── TOPIC GRID ── */
+  .topic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-bottom: 16px; }
+  .topic-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .topic-card-title { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .topic-card ul { list-style: none; }
+  .topic-card ul li {
+    font-size: 12px;
+    color: var(--muted);
+    padding: 2px 0;
+    padding-left: 12px;
+    position: relative;
+  }
+  .topic-card ul li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  /* ── RESOURCES SECTION ── */
+  .res-section-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    font-weight: 600;
+    margin: 14px 0 8px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .res-list { display: flex; flex-direction: column; gap: 6px; }
+  .res-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.15s;
+  }
+  .res-item:hover { border-color: var(--blue); }
+  .res-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .res-info { flex: 1; min-width: 0; }
+  .res-name { font-size: 13px; font-weight: 600; }
+  .res-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .res-tag {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+    align-self: center;
+  }
+  .tag-free { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag-paid { background: rgba(248,81,73,0.15); color: var(--red); }
+  .tag-cert { background: rgba(124,58,237,0.15); color: #a78bfa; }
+  .tag-docs { background: rgba(88,166,255,0.15); color: var(--blue); }
+
+  /* ── TIMELINE (CERTS) ── */
+  .cert-path { position: relative; padding-left: 28px; }
+  .cert-path::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--border);
+  }
+  .cert-item {
+    position: relative;
+    margin-bottom: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .cert-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+  }
+  .cert-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .cert-name { font-size: 14px; font-weight: 600; }
+  .cert-by { font-size: 11px; color: var(--muted); }
+  .cert-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .cert-chip {
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 8px;
+    color: var(--muted);
+  }
+  .cert-desc { font-size: 12px; color: var(--muted); margin-top: 8px; }
+
+  /* ── PROJECTS ── */
+  .project-list { display: grid; gap: 12px; }
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .project-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .project-level {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .project-title { font-size: 14px; font-weight: 600; }
+  .project-desc { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .tool-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tool-chip {
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    background: rgba(0,212,170,0.08);
+    border: 1px solid rgba(0,212,170,0.2);
+    color: var(--accent);
+    border-radius: 4px;
+    padding: 2px 8px;
+  }
+  .project-outcome {
+    margin-top: 10px;
+    font-size: 11px;
+    color: var(--green);
+    background: rgba(63,185,80,0.08);
+    border: 1px solid rgba(63,185,80,0.2);
+    border-radius: 6px;
+    padding: 6px 10px;
+  }
+
+  /* ── YT CHANNELS ── */
+  .channel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .channel-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .channel-header { display: flex; align-items: center; gap: 10px; }
+  .channel-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .channel-name { font-size: 14px; font-weight: 600; }
+  .channel-handle { font-size: 11px; color: var(--muted); }
+  .channel-desc { font-size: 12px; color: var(--muted); }
+  .channel-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .channel-tag {
+    font-size: 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1px 6px;
+    color: var(--muted);
+  }
+  .for-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: rgba(88,166,255,0.1);
+    color: var(--blue);
+    white-space: nowrap;
+  }
+
+  /* ── TOOLS TABLE ── */
+  .tool-category { margin-bottom: 24px; }
+  .tool-category-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+  }
+  .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+  .tool-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+  }
+  .tool-item-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .tool-emoji { font-size: 18px; }
+  .tool-name { font-size: 13px; font-weight: 600; }
+  .tool-role { font-size: 11px; color: var(--muted); }
+  .tool-alt { font-size: 10px; color: var(--muted); margin-top: 4px; font-family: 'JetBrains Mono', monospace; }
+
+  /* ── GENERIC SECTIONS ── */
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+  }
+  .section-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+  .info-box {
+    background: rgba(0,212,170,0.06);
+    border: 1px solid rgba(0,212,170,0.2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--text);
+    margin-bottom: 20px;
+    line-height: 1.7;
+  }
+  .info-box strong { color: var(--accent); }
+
+  /* ── SCROLL BAR ── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .page { padding: 24px 16px; }
+    nav { padding: 0 12px; }
+    .stat-row { gap: 10px; }
+    .channel-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">// devops.guide</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="switchPage('roadmap')">🗺 Roadmap</button>
+    <button class="nav-tab" onclick="switchPage('tools')">🔧 Tools</button>
+    <button class="nav-tab" onclick="switchPage('certs')">🏅 Certifications</button>
+    <button class="nav-tab" onclick="switchPage('projects')">💻 Projects</button>
+    <button class="nav-tab" onclick="switchPage('channels')">▶ YouTube</button>
+    <button class="nav-tab" onclick="switchPage('resources')">📚 Resources</button>
+  </div>
+</nav>
+
+<!-- ═══════════════ ROADMAP PAGE ═══════════════ -->
+<div class="page active" id="roadmap">
+  <div class="hero">
+    <div class="hero-eyebrow">// Universal Starter Guide · 2025–2026</div>
+    <h1>Become a <span>DevOps Engineer</span><br/>from Scratch</h1>
+    <p>A complete, opinionated, phase-by-phase roadmap covering what to learn, where to learn it, what to build, and which certifications to chase — structured for the portal you're building.</p>
+    <div class="stat-row">
+      <div class="stat"><div class="stat-num">6</div><div class="stat-label">Phases</div></div>
+      <div class="stat"><div class="stat-num">₹10–25L</div><div class="stat-label">India Avg Salary</div></div>
+      <div class="stat"><div class="stat-num">6–12mo</div><div class="stat-label">To Job-Ready</div></div>
+      <div class="stat"><div class="stat-num">75%+</div><div class="stat-label">IT Cos. Hiring</div></div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>How to use this guide:</strong> Work phase by phase. Don't jump ahead. Each phase builds on the last. Expect to spend 4–8 weeks per phase with 1–2 hours of daily practice. Phases 1–3 are your foundation. Phases 4–6 are your specialization and job-readiness layer.
+  </div>
+
+  <div class="phase-grid">
+
+    <!-- PHASE 1 -->
+    <div class="phase" id="ph1">
+      <div class="phase-header" onclick="togglePhase('ph1')">
+        <div class="phase-num">Phase 01</div>
+        <div class="phase-title">Foundation — Linux, Networking & Git</div>
+        <div class="phase-badge badge-beginner">Beginner</div>
+        <div class="phase-chevron">▶</div>
+      </div>
+      <div class="phase-body">
+        <div class="phase-desc">Everything in DevOps runs on Linux. Before touching any tool, you must be comfortable at the command line, understand how networks work, and know how to track code with Git. This is non-negotiable.</div>
+        <div class="topic-grid">
+          <div class="topic-card">
+            <div class="topic-card-title">🐧 Linux Basics</div>
+            <ul>
+              <li>File system navigation</li>
+              <li>Permissions & users</li>
+              <li>Processes & services</li>
+              <li>Package management (apt/yum)</li>
+              <li>Shell scripting (Bash)</li>
+              <li>Cron jobs & scheduling</li>
+            </ul>
+          </div>
+          <div class="topic-card">
+            <div class="topic-card-title">🌐 Networking</div>
+            <ul>
+              <li>OSI / TCP-IP model</li>
+              <li>DNS, HTTP/S, SSH</li>
+              <li>IP addressing & subnets</li>
+              <li>Firewalls & iptables</li>
+              <li>Load balancing basics</li>
+            </ul>
+          </div>
+          <div class="topic-card">
+            <div class="topic-card-title">📦 Git & Version Control</div>
+            <ul>
+              <li>init, clone, commit, push</li>
+              <li>Branching strategies</li>
+              <li>Merge vs Rebase</li>
+              <li>Pull Requests & reviews</li>
+              <li>GitHub / GitLab workflows</li>
+            </ul>
+          </div>
+          <div class="topic-card">
+            <div class="topic-card-title">🐍 Scripting</div>
+            <ul>
+              <li>Bash scripting (primary)</li>
+              <li>Python basics (secondary)</li>
+              <li>Regex & text processing</li>
+              <li>Automation of sysadmin tasks</li>
+            </ul>
+          </div>
+        </div>
+        <div class="res-section-title">// Key Resources</div>
+        <div class="res-list">
+          <a class="res-item" href="https://linuxjourney.com" target="_blank">
+            <div class="res-icon">🌐</div>
+            <div class="res-info"><div class="res-name">Linux Journey</div><div class="res-desc">Interactive Linux learning from zero — browser-based, free</div></div>
+            <div class="res-tag tag-free">Free</div>
+          </a>
+          <a class="res-item" href="https://www.youtube.com/@NetworkChuck" target="_blank">
+            <div class="res-icon">▶</div>
+            <div class="res-info"><div class="res-name">NetworkChuck — Linux & Networking</div><div class="res-desc">Engaging YT tutorials on Linux CLI, networking fundamentals</div></div>
+            <div class="res-tag tag-free">Free</div>
+          </a>
+          <a class="res-item" href="https://learngitbranching.js.org" target="_blank">
+            <div class="res-icon">🎮</div>
+            <div class="res-info"><div class="res-name">Learn Git Branching</div><div class="res-desc">Visual interactive game to master Git branching & merging</div></div>
+            <div class="res-tag tag-free">Free</div>
+          </a>
+          <a class="res-item" href="https://missing.csail.mit.edu" target="_blank">
+            <div class="res-icon">🎓</div>
+            <div class="res-info"><div class="res-name">MIT — The Missing Semester</div><div class="res-desc">Shell, Git, editors, debugging — the tools CS doesn't teach you</div></div>
+            <div class="res-tag tag-free">Free</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="phase" id="ph2">
+      <div class="phase-header" onclick="togglePhase('ph2')">
+        <div class="phase-num">Phase 02</div>
+        <div class="phase-title">Containers — Docker & Docker Compose</div>
+        <div class="phase-badge badge-beginner">Beginner</div>
+        <div class="phase-chevron">▶</div>
+      </div>
+      <div class="phase-body">
+        <div class="phase-desc">Containers are the atomic unit of modern infrastructure. Docker is the entry point. You need to understand containerization deeply before moving to orchestration.</div>
+        <div class="topic-grid">
+          <div class="topic-card">
+            <div class="topic-card-title">🐳 Docker Core</div>
+            <ul>
+              <li>Images vs Containers</li>
+              <li>Dockerfile writing</li>
+              <li>docker build / run / push</li>
+              <li>Docker Hub & registries</li>
+              <li>Volumes & bind mounts</li>
+              <li>Networking in Docker</li>
+            </ul>
+          </div>
+          <div class="topic-card">
+            <div class="topic-card-title">🔗 Docker Compose</div>
+            <ul>
+              <li>Multi-container apps</li>
+              <li>docker-compose.yml syntax</li>
+              <li>Service dependencies</li>
+              <li>Environment variables</li>
+              <li>Health checks</li>
+            </ul>
+          </div>
+          <div class="topic-card">
+            <div class="topic-card-title">⚡ Best Practices</div>
+            <ul>
+              <li>Multi-stage builds</li>
+              <li>Minimizing image size</li>
+              <li>Non-root users in containers</li>
+              <li>.dockerignore</li>
+              <li>Layer caching</li>
+            </ul>
+          </div>
+        </div>
+        <div class="res-section-title">// Key Resources</div>
+        <div class="res-list">
+          <a class="res-item" href="https://www.youtube.com/@TechWorldwithNana" target="_blank">
+            <div class="res-icon">▶</div>
+            <div class="res-info"><div class="res-name">TechWorld with Nana — Docker Tutorial</div><div class="res-desc">Best beginner Docker series with real-world examples</div></div>
+            <div class="res-tag tag-free">Free</div>
+          </a>
+          <a class="res-item" href="https://docs.docker.com/get-started/" target="_blank">
+            <div class="res-icon">📖</div>
+            <div class="res-info"><div class="res-name">Official Docker Docs — Get Started</div><div class="res-desc">Authoritative source, hands-on labs included</div></div>
+            <div class="res-tag tag-docs">Docs</div>
+          </a>
+          <a class="res-item" href="https://www.youtube.com/@DevOpsDirective" target="_blank">
+            <div class="res-icon">▶</div>
+            <div class="res-info"><div class="res-name">DevOps Directive — Complete Docker Course</div><div class="res-desc">Production-grade Docker from dev to deploy, free on YouTube</div></div>
+            <div class="res-tag tag-free">Free</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="phase" id="ph3">
+      <div class="phase-header" onclick="togglePhase('ph3')">
+        <div class="phase-num">Phase 03</div>
+        <div class="phase-title">CI/CD Pipelines — GitHub Actions & Jenkins</div>
+        <div class="phase-badge badge-intermediate">Intermediate</div>
+        <div class="phase-chevron">▶</div>
+      </div>
+      <div class="phase-body">
+        <div class="phase-desc">CI/CD is the heart of DevOps. Automate your build, test, and deploy cycle. Start with GitHub Actions (modern standard), then learn Jenkins for enterprise environments.</div>
+        <div class="topic-grid">
+          <div class="topic-card">
+            <div class="topic-card-title">⚙ GitHub Actions</div>
+            <ul>
+              <li>Workflows & YAML syntax</li>
+              <li>Triggers (push, PR, schedule)</li>
+              <li>Jobs, steps, runners</li>
+              <li>Secrets & environment vars</li>
+              <li>Reusable workflows</li>
+              <li>Deploy to cloud/K8s</li>
+            </ul>
+          </div>
+          <div class="topic-card">
+            <div class="topic-card-title">🔩 Jenkins</div>
+            <ul>
+              <li>Jenkins architecture</li>
+              <li>Declarative Pipelines</li>
+              <li>Jenkinsfile</li>
+              <li>Agent configuration</li>
+              <li>Plugin ecosystem</li>
+              <li>Blue Ocean UI</li>
+            </ul>
+          </div>
+          <div class="topic-card">
+            <div class="topic-card-title">🧪 Testing in CI</div>
+            <ul>
+              <li>Unit & integration tests</li>
+              <li>Code coverage gates</li>
+              <li>SAST (static analysis)</li>
+              <li>Dependency scanning</li>
+              <li>Docker image scanning</li>
+            </ul>
+          </div>
+          <div class="topic-card">
+            <div class="topic-card-title">🚢 CD Strategies</div>
+            <ul>
+              <li>Blue-Green deployments</li>
+              <li>Canary releases</li>
+              <li>Rolling updates</li>
+              <li>Feature flags</li>
+              <li>GitOps (ArgoCD basics)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="res-section-title">// Key Resources</div>
+        <div class="res-list">
+          <a class="res-item" href="https://docs.github.com/en/actions" target="_blank">
+            <div class="res-icon">📖</div>
+            <div class="res-info"><div class="res-name">GitHub Actions Docs</div><div class="res-desc">Complete official guide with examples and workflow templates</div></div>
+            <div class="res-tag tag-docs">Docs</div>
+          </a>
+          <a class="res-item" href="https://www.youtube.com/@KodeKloud" target="_blank">
+            <div class="res-icon">▶</div>
+            <div class="res-info"><div class="res-name">KodeKloud — Jenkins from Zero</div><div class="res-desc">Hands-on Jenkins lab walkthroughs with live environments</div></div>
+            <div class="res-tag tag-free">Free</div>
+          </a>
+          <a class="res-item" href="https://kodekloud.com" target="_blank">
+            <div class="res-icon">🧪</div>
+            <div class="res-info"><div class="res-name">KodeKloud Labs (Paid)</div><div class="res-desc">Browser-based interactive CI/CD labs — best for hands-on practice</div></div>
+            <div class="res-tag tag-paid">Paid</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 4 -->
+    <div class="phase" id="ph4">
+      <div class="phase-header" onclick="togglePhase('ph4')">
+        <div class="phase-num">Phase 04</div>
+        <div class="phase-title">Container Orchestration — Kubernetes</div>
+        <div class="phase-badge badge-intermediate">Intermediate</div>
+        <div class="phase-chevron">▶</div>
+      </div>
+      <div class="phase-body">
+        <div class="phase-desc">Kubernetes is the industry standard for running containers at scale. This is where most beginners get stuck — spend extra time here. Build your own cluster, break things, fix them.</div>
+        <div class="topic-grid">
+          <div class="topic-card">
+            <div class="topic-card-title">⚓ K8s Architecture</div>
+            <ul>
+              <li>Control plane components</li>
+              <li>Worker nodes & kubelet</li>
+              <li>etcd, API server</li>
+              <li>Scheduler & controller</li>
+            </ul>
+          </div>
+          <div class="topic-card">
+            <div class="topic-card-title">📦 Core Objects</div>
+            <ul>
+              <li>Pods & ReplicaSets</li>
+              <li>Deployments</li>
+              <li>Services (ClusterIP, NodePort, LB)</li>
+              <li>ConfigMaps & Secrets</li>
+              <li>PersistentVolumes</li>
+            </ul>
+          </div>
+          <div class="topic-card">
+            <div class="topic-card-title">🔐 Advanced K8s</div>
+            <ul>
+              <li>Namespaces & RBAC</li>
+              <li>Ingress controllers</li>
+              <li>Helm charts</li>
+              <li>HPA & VPA (autoscaling)</li>
+              <li>StatefulSets & DaemonSets</li>
+            </ul>
+          </div>
+          <div class="topic-card">
+            <div class="topic-card-title">🔄 GitOps</div>
+            <ul>
+              <li>ArgoCD installation & setup</li>
+              <li>App of apps pattern</li>
+              <li>Sync policies & health</li>
+              <li>FluxCD alternative</li>
+            </ul>
+          </div>
+        </div>
+        <div class="res-section-title">// Key Resources</div>
+        <div class="res-list">
+          <a class="res-item" href="https://kubernetes.io/docs/tutorials/" target="_blank">
+            <div class="res-icon">📖</div>
+            <div class="res-info"><div class="res-name">Kubernetes Official Docs — Tutorials</div><div class="res-desc">Authoritative tutorials including interactive browser playground</div></div>
+            <div class="res-tag tag-docs">Docs</div>
+          </a>
+          <a class="res-item" href="https://www.youtube.com/@TechWorldwithNana" target="_blank">
+            <div class="res-icon">▶</div>
+            <div class="res-info"><div class="res-name">TechWorld with Nana — Kubernetes Full Course</div><div class="res-desc">4-hour deep dive; best visual explanations of K8s architecture</div></div>
+            <div class="res-tag tag-free">Free</div>
+          </a>
+          <a class="res-item" href="https://www.youtube.com/@KodeKloud" target="_blank">
+            <div class="res-icon">▶</div>
+            <div class="res-info"><div class="res-name">KodeKloud — K8s for Absolute Beginners</div><div class="res-desc">CKA prep series; lab-first approach with real environments</div></div>
+            <div class="res-tag tag-free">Free</div>
+          </a>
+          <a class="res-item" href="https://killercoda.com/kubernetes" target="_blank">
+            <div class="res-icon">🧪</div>
+            <div class="res-info"><div class="res-name">Killercoda — Free K8s Practice Labs</div><div class="res-desc">Browser-based interactive K8s labs, no install needed</div></div>
+            <div class="res-tag tag-free">Free</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 5 -->
+    <div class="phase" id="ph5">
+      <div class="phase-header" onclick="togglePhase('ph5')">
+        <div class="phase-num">Phase 05</div>
+        <div class="phase-title">Cloud & Infrastructure as Code</div>
+        <div class="phase-badge badge-advanced">Advanced</div>
+        <div class="phase-chevron">▶</div>
+      </div>
+      <div class="phase-body">
+        <div class="phase-desc">Pick one cloud (AWS recommended for India market) and go deep. Then learn Terraform to provision infrastructure declaratively. Ansible for configuration management.</div>
+        <div class="topic-grid">
+          <div class="topic-card">
+            <div class="topic-card-title">☁ AWS Core</div>
+            <ul>
+              <li>EC2, VPC, IAM, S3</li>
+              <li>RDS, ElastiCache</li>
+              <li>EKS (managed K8s)</li>
+              <li>ECR (container registry)</li>
+              <li>Lambda & serverless</li>
+              <li>CloudWatch monitoring</li>
+            </ul>
+          </div>
+          <div class="topic-card">
+            <div class="topic-card-title">🏗 Terraform (IaC)</div>
+            <ul>
+              <li>HCL syntax & providers</li>
+              <li>State management</li>
+              <li>Modules & workspaces</li>
+              <li>Remote state (S3 + DynamoDB)</li>
+              <li>Terraform Cloud basics</li>
+            </ul>
+          </div>
+          <div class="topic-card">
+            <div class="topic-card-title">⚙ Ansible</div>
+            <ul>
+              <li>Inventory & playbooks</li>
+              <li>Roles & variables</li>
+              <li>Templates (Jinja2)</li>
+              <li>Idempotency</li>
+              <li>AWX / Ansible Tower</li>
+            </ul>
+          </div>
+          <div class="topic-card">
+            <div class="topic-card-title">🔐 Cloud Security</div>
+            <ul>
+              <li>IAM roles & policies</li>
+              <li>Secrets Manager / SSM</li>
+              <li>VPC security groups & NACLs</li>
+              <li>CloudTrail & GuardDuty</li>
+            </ul>
+          </div>
+        </div>
+        <div class="res-section-title">// Key Resources</div>
+        <div class="res-list">
+          <a class="res-item" href="https://aws.amazon.com/free/" target="_blank">
+            <div class="res-icon">☁</div>
+            <div class="res-info"><div class="res-name">AWS Free Tier</div><div class="res-desc">12 months of free EC2, S3, RDS — practice on real cloud</div></div>
+            <div class="res-tag tag-free">Free</div>
+          </a>
+          <a class="res-item" href="https://developer.hashicorp.com/terraform/tutorials" target="_blank">
+            <div class="res-icon">📖</div>
+            <div class="res-info"><div class="res-name">HashiCorp Terraform Tutorials</div><div class="res-desc">Official guided tutorials from zero to production Terraform</div></div>
+            <div class="res-tag tag-docs">Docs</div>
+          </a>
+          <a class="res-item" href="https://www.youtube.com/@AntonPutra" target="_blank">
+            <div class="res-icon">▶</div>
+            <div class="res-info"><div class="res-name">Anton Putra — AWS + Terraform Deep Dives</div><div class="res-desc">Production-level AWS infrastructure builds on YouTube</div></div>
+            <div class="res-tag tag-free">Free</div>
+          </a>
+          <a class="res-item" href="https://github.com/techiescamp/devops-projects" target="_blank">
+            <div class="res-icon">💻</div>
+            <div class="res-info"><div class="res-name">TechiesCamp DevOps Projects (GitHub)</div><div class="res-desc">Real-world beginner-to-advanced projects with video walkthroughs</div></div>
+            <div class="res-tag tag-free">Free</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 6 -->
+    <div class="phase" id="ph6">
+      <div class="phase-header" onclick="togglePhase('ph6')">
+        <div class="phase-num">Phase 06</div>
+        <div class="phase-title">Observability — Monitoring, Logging & SRE</div>
+        <div class="phase-badge badge-advanced">Advanced</div>
+        <div class="phase-chevron">▶</div>
+      </div>
+      <div class="phase-body">
+        <div class="phase-desc">You can't manage what you can't measure. This phase teaches you to make systems observable — metrics, logs, traces — and introduces SRE concepts that senior DevOps roles demand.</div>
+        <div class="topic-grid">
+          <div class="topic-card">
+            <div class="topic-card-title">📊 Metrics</div>
+            <ul>
+              <li>Prometheus architecture</li>
+              <li>PromQL queries</li>
+              <li>Grafana dashboards</li>
+              <li>Alertmanager setup</li>
+              <li>Custom metrics & exporters</li>
+            </ul>
+          </div>
+          <div class="topic-card">
+            <div class="topic-card-title">📋 Logging</div>
+            <ul>
+              <li>ELK Stack (Elasticsearch, Logstash, Kibana)</li>
+              <li>Loki + Grafana</li>
+              <li>Fluentd / Fluent Bit</li>
+              <li>Structured logging</li>
+              <li>Log aggregation patterns</li>
+            </ul>
+          </div>
+          <div class="topic-card">
+            <div class="topic-card-title">🔍 Tracing</div>
+            <ul>
+              <li>Distributed tracing concepts</li>
+              <li>Jaeger / Zipkin</li>
+              <li>OpenTelemetry</li>
+              <li>Trace-log correlation</li>
+            </ul>
+          </div>
+          <div class="topic-card">
+            <div class="topic-card-title">🛡 SRE Concepts</div>
+            <ul>
+              <li>SLI, SLO, SLA definitions</li>
+              <li>Error budgets</li>
+              <li>Incident response runbooks</li>
+              <li>Chaos engineering basics</li>
+              <li>Postmortem culture</li>
+            </ul>
+          </div>
+        </div>
+        <div class="res-section-title">// Key Resources</div>
+        <div class="res-list">
+          <a class="res-item" href="https://prometheus.io/docs/introduction/overview/" target="_blank">
+            <div class="res-icon">📖</div>
+            <div class="res-info"><div class="res-name">Prometheus Official Docs</div><div class="res-desc">Complete guide to metrics collection, querying, and alerting</div></div>
+            <div class="res-tag tag-docs">Docs</div>
+          </a>
+          <a class="res-item" href="https://grafana.com/tutorials/" target="_blank">
+            <div class="res-icon">📊</div>
+            <div class="res-info"><div class="res-name">Grafana Tutorials</div><div class="res-desc">Step-by-step dashboarding and observability stack setup</div></div>
+            <div class="res-tag tag-free">Free</div>
+          </a>
+          <a class="res-item" href="https://sre.google/books/" target="_blank">
+            <div class="res-icon">📘</div>
+            <div class="res-info"><div class="res-name">Google SRE Book (Free Online)</div><div class="res-desc">The definitive SRE guide by Google engineers — essential reading</div></div>
+            <div class="res-tag tag-free">Free</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end phase-grid -->
+</div>
+
+<!-- ═══════════════ TOOLS PAGE ═══════════════ -->
+<div class="page" id="tools">
+  <div class="section-title">The DevOps Toolchain</div>
+  <div class="section-subtitle">Every tool a job-ready DevOps engineer should know, organized by category and importance.</div>
+
+  <div class="tool-category">
+    <div class="tool-category-title">// Operating System & Shell</div>
+    <div class="tools-grid">
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">🐧</div><div class="tool-name">Linux (Ubuntu/RHEL)</div></div><div class="tool-role">Primary OS for all DevOps work</div><div class="tool-alt">Alt: CentOS, Amazon Linux</div></div>
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">💬</div><div class="tool-name">Bash</div></div><div class="tool-role">Shell scripting & automation</div><div class="tool-alt">Alt: Zsh, Fish</div></div>
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">🐍</div><div class="tool-name">Python</div></div><div class="tool-role">Automation & tooling scripts</div><div class="tool-alt">Alt: Go (for CLIs)</div></div>
+    </div>
+  </div>
+
+  <div class="tool-category">
+    <div class="tool-category-title">// Version Control</div>
+    <div class="tools-grid">
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">📦</div><div class="tool-name">Git</div></div><div class="tool-role">Source code version control</div></div>
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">🐙</div><div class="tool-name">GitHub</div></div><div class="tool-role">Repo hosting + Actions CI/CD</div><div class="tool-alt">Alt: GitLab, Bitbucket</div></div>
+    </div>
+  </div>
+
+  <div class="tool-category">
+    <div class="tool-category-title">// Containers</div>
+    <div class="tools-grid">
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">🐳</div><div class="tool-name">Docker</div></div><div class="tool-role">Container build & runtime</div></div>
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">🔗</div><div class="tool-name">Docker Compose</div></div><div class="tool-role">Multi-container local dev</div></div>
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">📋</div><div class="tool-name">Docker Hub / ECR</div></div><div class="tool-role">Container image registry</div></div>
+    </div>
+  </div>
+
+  <div class="tool-category">
+    <div class="tool-category-title">// CI/CD</div>
+    <div class="tools-grid">
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">⚙</div><div class="tool-name">GitHub Actions</div></div><div class="tool-role">Modern CI/CD (industry default)</div></div>
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">🔩</div><div class="tool-name">Jenkins</div></div><div class="tool-role">Enterprise CI/CD pipelines</div></div>
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">🦊</div><div class="tool-name">GitLab CI/CD</div></div><div class="tool-role">Integrated DevOps platform</div></div>
+    </div>
+  </div>
+
+  <div class="tool-category">
+    <div class="tool-category-title">// Orchestration</div>
+    <div class="tools-grid">
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">⚓</div><div class="tool-name">Kubernetes (K8s)</div></div><div class="tool-role">Container orchestration standard</div></div>
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">⛵</div><div class="tool-name">Helm</div></div><div class="tool-role">K8s package manager</div></div>
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">🔄</div><div class="tool-name">ArgoCD</div></div><div class="tool-role">GitOps continuous delivery</div><div class="tool-alt">Alt: FluxCD</div></div>
+    </div>
+  </div>
+
+  <div class="tool-category">
+    <div class="tool-category-title">// Infrastructure as Code</div>
+    <div class="tools-grid">
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">🏗</div><div class="tool-name">Terraform</div></div><div class="tool-role">Multi-cloud IaC (industry standard)</div></div>
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">🤖</div><div class="tool-name">Ansible</div></div><div class="tool-role">Config management & automation</div></div>
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">☁</div><div class="tool-name">Pulumi</div></div><div class="tool-role">IaC with real languages (TypeScript, Python)</div></div>
+    </div>
+  </div>
+
+  <div class="tool-category">
+    <div class="tool-category-title">// Cloud Platforms</div>
+    <div class="tools-grid">
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">🟡</div><div class="tool-name">AWS</div></div><div class="tool-role">Market leader — learn first (India: highest demand)</div></div>
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">🔵</div><div class="tool-name">Azure</div></div><div class="tool-role">Enterprise favorite; strong in India IT services</div></div>
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">🔴</div><div class="tool-name">Google Cloud (GCP)</div></div><div class="tool-role">Best-in-class Kubernetes (GKE)</div></div>
+    </div>
+  </div>
+
+  <div class="tool-category">
+    <div class="tool-category-title">// Observability</div>
+    <div class="tools-grid">
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">📊</div><div class="tool-name">Prometheus</div></div><div class="tool-role">Metrics collection & alerting</div></div>
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">📉</div><div class="tool-name">Grafana</div></div><div class="tool-role">Dashboards & visualization</div></div>
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">🔍</div><div class="tool-name">ELK Stack</div></div><div class="tool-role">Log aggregation & search</div></div>
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">🌊</div><div class="tool-name">Datadog / Dynatrace</div></div><div class="tool-role">Enterprise observability (SaaS)</div></div>
+    </div>
+  </div>
+
+  <div class="tool-category">
+    <div class="tool-category-title">// Security (DevSecOps)</div>
+    <div class="tools-grid">
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">🔐</div><div class="tool-name">HashiCorp Vault</div></div><div class="tool-role">Secrets management</div></div>
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">🛡</div><div class="tool-name">Trivy / Snyk</div></div><div class="tool-role">Container & dependency scanning</div></div>
+      <div class="tool-item"><div class="tool-item-header"><div class="tool-emoji">🔒</div><div class="tool-name">SonarQube</div></div><div class="tool-role">Static code analysis (SAST)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ CERTIFICATIONS PAGE ═══════════════ -->
+<div class="page" id="certs">
+  <div class="section-title">Certification Roadmap</div>
+  <div class="section-subtitle">Industry-recognized certs in the order most DevOps engineers should chase them. Each one builds on the last.</div>
+
+  <div class="info-box">
+    <strong>Strategy:</strong> Start with the AWS Cloud Practitioner as a foundation, then go for CKA (most in-demand hands-on cert), then the AWS DevOps Professional. Add Terraform Associate to complete the IaC story. For India market, AWS + CKA is the most valuable combination.
+  </div>
+
+  <div class="cert-path">
+
+    <div class="cert-item">
+      <div class="cert-header">
+        <div class="cert-name">AWS Certified Cloud Practitioner</div>
+        <div class="cert-by">Amazon Web Services</div>
+      </div>
+      <div class="cert-desc">Entry-level cloud literacy cert. Learn AWS services, billing, and architecture concepts. Not hands-on but builds vocabulary needed for everything else.</div>
+      <div class="cert-meta">
+        <div class="cert-chip">Entry Level</div>
+        <div class="cert-chip">~$100 USD</div>
+        <div class="cert-chip">90 min MCQ</div>
+        <div class="cert-chip">3 year validity</div>
+      </div>
+    </div>
+
+    <div class="cert-item">
+      <div class="cert-header">
+        <div class="cert-name">Certified Kubernetes Administrator (CKA)</div>
+        <div class="cert-by">CNCF / Linux Foundation</div>
+      </div>
+      <div class="cert-desc">Performance-based hands-on exam — you actually operate a real K8s cluster. Most in-demand cert for DevOps roles globally. 6,000+ job listings explicitly require it. Do this before AWS DevOps Pro.</div>
+      <div class="cert-meta">
+        <div class="cert-chip">Intermediate</div>
+        <div class="cert-chip">$395 USD</div>
+        <div class="cert-chip">2 hr hands-on</div>
+        <div class="cert-chip">2 year validity</div>
+      </div>
+    </div>
+
+    <div class="cert-item">
+      <div class="cert-header">
+        <div class="cert-name">HashiCorp Certified: Terraform Associate</div>
+        <div class="cert-by">HashiCorp</div>
+      </div>
+      <div class="cert-desc">Validates Infrastructure as Code skills with Terraform. 15,000+ US job postings mention it. Essential for cloud roles. Relatively easy to pass with 2 weeks of focused prep.</div>
+      <div class="cert-meta">
+        <div class="cert-chip">Intermediate</div>
+        <div class="cert-chip">$70.50 USD</div>
+        <div class="cert-chip">1 hr MCQ</div>
+        <div class="cert-chip">2 year validity</div>
+      </div>
+    </div>
+
+    <div class="cert-item">
+      <div class="cert-header">
+        <div class="cert-name">AWS Certified DevOps Engineer – Professional</div>
+        <div class="cert-by">Amazon Web Services</div>
+      </div>
+      <div class="cert-desc">Most in-demand cloud DevOps cert — 6,000+ job listings in the US alone. Covers CI/CD, automation, monitoring on AWS. Requires 2+ years AWS experience. This is your career milestone cert.</div>
+      <div class="cert-meta">
+        <div class="cert-chip">Advanced</div>
+        <div class="cert-chip">$300 USD</div>
+        <div class="cert-chip">3 hr scenario-based</div>
+        <div class="cert-chip">3 year validity</div>
+      </div>
+    </div>
+
+    <div class="cert-item">
+      <div class="cert-header">
+        <div class="cert-name">Certified Kubernetes Application Developer (CKAD)</div>
+        <div class="cert-by">CNCF / Linux Foundation</div>
+      </div>
+      <div class="cert-desc">Companion to CKA — focuses on application developers deploying to K8s. Stack with CKA for maximum credibility. Also hands-on performance-based exam.</div>
+      <div class="cert-meta">
+        <div class="cert-chip">Intermediate</div>
+        <div class="cert-chip">$395 USD</div>
+        <div class="cert-chip">2 hr hands-on</div>
+        <div class="cert-chip">2 year validity</div>
+      </div>
+    </div>
+
+    <div class="cert-item">
+      <div class="cert-header">
+        <div class="cert-name">Certified Kubernetes Security Specialist (CKS)</div>
+        <div class="cert-by">CNCF / Linux Foundation</div>
+      </div>
+      <div class="cert-desc">Requires CKA first. Covers RBAC, network policies, runtime security, supply chain security. Separates senior DevOps engineers from junior ones. Increasingly expected for mid/senior roles.</div>
+      <div class="cert-meta">
+        <div class="cert-chip">Advanced</div>
+        <div class="cert-chip">$395 USD</div>
+        <div class="cert-chip">2 hr hands-on</div>
+        <div class="cert-chip">2 year validity</div>
+      </div>
+    </div>
+
+    <div class="cert-item">
+      <div class="cert-header">
+        <div class="cert-name">Google Cloud Professional DevOps Engineer</div>
+        <div class="cert-by">Google Cloud</div>
+      </div>
+      <div class="cert-desc">Best-in-class SRE emphasis. Excellent second cloud cert. GCP's Kubernetes tooling (GKE) is industry-leading. Good add-on after AWS DevOps Pro.</div>
+      <div class="cert-meta">
+        <div class="cert-chip">Advanced</div>
+        <div class="cert-chip">$200 USD</div>
+        <div class="cert-chip">2 hr scenario-based</div>
+        <div class="cert-chip">2 year validity</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ PROJECTS PAGE ═══════════════ -->
+<div class="page" id="projects">
+  <div class="section-title">Real-World Projects</div>
+  <div class="section-subtitle">Build these in order. Each one produces a GitHub portfolio artifact you can show in interviews.</div>
+
+  <div class="info-box">
+    <strong>Rule:</strong> Use real cloud environments (AWS Free Tier), not just browser labs. Real cloud experience — IAM permissions, networking quirks, cost optimization — is what separates candidates. Every project should be pushed to GitHub with a README.
+  </div>
+
+  <div class="project-list">
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-level badge-beginner">Beginner</div>
+        <div class="project-title">Project 1: Dockerize a Web Application</div>
+      </div>
+      <div class="project-desc">Take any simple web app (Python Flask, Node.js, or even WordPress), write a Dockerfile, build the image, run it locally, then push to Docker Hub. Then write a docker-compose.yml to add a database service.</div>
+      <div class="tool-chips">
+        <div class="tool-chip">Docker</div>
+        <div class="tool-chip">Docker Compose</div>
+        <div class="tool-chip">Docker Hub</div>
+        <div class="tool-chip">Git</div>
+      </div>
+      <div class="project-outcome">✓ Portfolio win: Shows you can containerize any application — core DevOps skill #1</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-level badge-beginner">Beginner</div>
+        <div class="project-title">Project 2: CI/CD Pipeline with GitHub Actions</div>
+      </div>
+      <div class="project-desc">Build a pipeline that: (1) runs tests on every push, (2) builds a Docker image on merge to main, (3) pushes the image to Docker Hub automatically. Include a badge in your README showing build status.</div>
+      <div class="tool-chips">
+        <div class="tool-chip">GitHub Actions</div>
+        <div class="tool-chip">Docker</div>
+        <div class="tool-chip">Docker Hub</div>
+      </div>
+      <div class="project-outcome">✓ Portfolio win: Demonstrates CI/CD automation from code commit to deployable artifact</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-level badge-intermediate">Intermediate</div>
+        <div class="project-title">Project 3: Deploy to Kubernetes on AWS (EKS)</div>
+      </div>
+      <div class="project-desc">Deploy your Dockerized app to an EKS cluster. Set up Deployments, Services, and an Ingress controller (Nginx). Implement HPA so it scales automatically under load. Use Helm for packaging.</div>
+      <div class="tool-chips">
+        <div class="tool-chip">Kubernetes</div>
+        <div class="tool-chip">AWS EKS</div>
+        <div class="tool-chip">Helm</div>
+        <div class="tool-chip">Nginx Ingress</div>
+        <div class="tool-chip">kubectl</div>
+      </div>
+      <div class="project-outcome">✓ Portfolio win: Shows you can run production workloads on managed K8s in the cloud</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-level badge-intermediate">Intermediate</div>
+        <div class="project-title">Project 4: Infrastructure with Terraform</div>
+      </div>
+      <div class="project-desc">Provision your entire AWS infrastructure (VPC, subnets, EC2, RDS, S3) using Terraform — zero ClickOps. Store state in S3 with DynamoDB locking. Use modules for reusability. Document with README.</div>
+      <div class="tool-chips">
+        <div class="tool-chip">Terraform</div>
+        <div class="tool-chip">AWS</div>
+        <div class="tool-chip">S3 Backend</div>
+        <div class="tool-chip">DynamoDB</div>
+      </div>
+      <div class="project-outcome">✓ Portfolio win: Proves IaC proficiency — every cloud company wants this</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-level badge-intermediate">Intermediate</div>
+        <div class="project-title">Project 5: Monitoring Stack with Prometheus + Grafana</div>
+      </div>
+      <div class="project-desc">Deploy Prometheus and Grafana on Kubernetes using Helm. Set up a node-exporter and custom app metrics. Build 3 dashboards (infra health, app performance, error rates). Configure Alertmanager with email/Slack alerts.</div>
+      <div class="tool-chips">
+        <div class="tool-chip">Prometheus</div>
+        <div class="tool-chip">Grafana</div>
+        <div class="tool-chip">Alertmanager</div>
+        <div class="tool-chip">Helm</div>
+        <div class="tool-chip">Kubernetes</div>
+      </div>
+      <div class="project-outcome">✓ Portfolio win: Observability is a top-3 DevOps skill; this shows full-stack monitoring</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-level badge-advanced">Advanced</div>
+        <div class="project-title">Project 6: Full DevOps Lifecycle (Capstone)</div>
+      </div>
+      <div class="project-desc">Build everything end-to-end: A React + API app → GitHub repo → GitHub Actions CI → Docker build → ECR registry → Terraform provisions EKS → ArgoCD deploys from Git → Prometheus + Grafana monitors. Zero manual steps after push.</div>
+      <div class="tool-chips">
+        <div class="tool-chip">GitHub Actions</div>
+        <div class="tool-chip">Docker</div>
+        <div class="tool-chip">Terraform</div>
+        <div class="tool-chip">AWS EKS</div>
+        <div class="tool-chip">ArgoCD</div>
+        <div class="tool-chip">Prometheus</div>
+        <div class="tool-chip">Grafana</div>
+        <div class="tool-chip">Helm</div>
+      </div>
+      <div class="project-outcome">✓ Portfolio win: Full DevOps lifecycle project — this is your resume centerpiece and interview anchor</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ YOUTUBE PAGE ═══════════════ -->
+<div class="page" id="channels">
+  <div class="section-title">YouTube Learning Path</div>
+  <div class="section-subtitle">The definitive ranked list. Start with 2–3 channels max. Add more as you advance.</div>
+
+  <div class="info-box">
+    <strong>Recommended sequence:</strong> NetworkChuck → TechWorld with Nana → KodeKloud → DevOps Directive → Anton Putra. Don't binge-watch — watch, then immediately practice.
+  </div>
+
+  <div class="channel-grid">
+
+    <div class="channel-card">
+      <div class="channel-header">
+        <div class="channel-avatar" style="background:rgba(255,107,53,0.15);color:#ff6b35;">NC</div>
+        <div><div class="channel-name">NetworkChuck</div><div class="channel-handle">@NetworkChuck</div></div>
+        <div class="for-badge">Start Here</div>
+      </div>
+      <div class="channel-desc">Linux, networking, Docker, Python — made fun and digestible. Perfect entry point for complete beginners before touching any DevOps tool.</div>
+      <div class="channel-tags">
+        <div class="channel-tag">Linux</div><div class="channel-tag">Networking</div><div class="channel-tag">Docker</div><div class="channel-tag">Beginner</div>
+      </div>
+    </div>
+
+    <div class="channel-card">
+      <div class="channel-header">
+        <div class="channel-avatar" style="background:rgba(0,212,170,0.15);color:#00d4aa;">TN</div>
+        <div><div class="channel-name">TechWorld with Nana</div><div class="channel-handle">@TechWorldwithNana</div></div>
+        <div class="for-badge">Best Overall</div>
+      </div>
+      <div class="channel-desc">The #1 DevOps YouTube channel. Animated explanations of Docker, Kubernetes, CI/CD, Terraform, GitOps. Structured like a course. Watch sequentially.</div>
+      <div class="channel-tags">
+        <div class="channel-tag">Docker</div><div class="channel-tag">Kubernetes</div><div class="channel-tag">CI/CD</div><div class="channel-tag">Terraform</div>
+      </div>
+    </div>
+
+    <div class="channel-card">
+      <div class="channel-header">
+        <div class="channel-avatar" style="background:rgba(88,166,255,0.15);color:#58a6ff;">KK</div>
+        <div><div class="channel-name">KodeKloud</div><div class="channel-handle">@KodeKloud</div></div>
+        <div class="for-badge">Cert Prep</div>
+      </div>
+      <div class="channel-desc">Lab-first tutorials. Best channel for CKA/CKAD preparation. Commands, real infrastructure, no hand-waving. Pairs with their paid lab platform.</div>
+      <div class="channel-tags">
+        <div class="channel-tag">CKA</div><div class="channel-tag">CKAD</div><div class="channel-tag">Hands-on</div><div class="channel-tag">Kubernetes</div>
+      </div>
+    </div>
+
+    <div class="channel-card">
+      <div class="channel-header">
+        <div class="channel-avatar" style="background:rgba(124,58,237,0.15);color:#a78bfa;">DD</div>
+        <div><div class="channel-name">DevOps Directive</div><div class="channel-handle">@DevOpsDirective</div></div>
+        <div class="for-badge">Intermediate</div>
+      </div>
+      <div class="channel-desc">Production-realistic walkthroughs. Best Docker course on YouTube (free, 7+ hours). AWS, GitHub Actions. High quality, low noise.</div>
+      <div class="channel-tags">
+        <div class="channel-tag">Docker</div><div class="channel-tag">AWS</div><div class="channel-tag">GitHub Actions</div><div class="channel-tag">Production</div>
+      </div>
+    </div>
+
+    <div class="channel-card">
+      <div class="channel-header">
+        <div class="channel-avatar" style="background:rgba(210,153,34,0.15);color:#d29922;">AP</div>
+        <div><div class="channel-name">Anton Putra</div><div class="channel-handle">@AntonPutra</div></div>
+        <div class="for-badge">Advanced</div>
+      </div>
+      <div class="channel-desc">Deep AWS + Terraform builds. Rigorous benchmarks, production-grade configs. For engineers who want to go beyond tutorials and understand why, not just how.</div>
+      <div class="channel-tags">
+        <div class="channel-tag">AWS</div><div class="channel-tag">Terraform</div><div class="channel-tag">Kubernetes</div><div class="channel-tag">Advanced</div>
+      </div>
+    </div>
+
+    <div class="channel-card">
+      <div class="channel-header">
+        <div class="channel-avatar" style="background:rgba(63,185,80,0.15);color:#3fb950;">DT</div>
+        <div><div class="channel-name">That DevOps Guy</div><div class="channel-handle">@MarcelDempers</div></div>
+        <div class="for-badge">Azure + GitOps</div>
+      </div>
+      <div class="channel-desc">Azure, Kubernetes, GitOps from a production engineer's perspective. Best if your target companies use Azure. GitOps content is top-class.</div>
+      <div class="channel-tags">
+        <div class="channel-tag">Azure</div><div class="channel-tag">GitOps</div><div class="channel-tag">Kubernetes</div>
+      </div>
+    </div>
+
+    <div class="channel-card">
+      <div class="channel-header">
+        <div class="channel-avatar" style="background:rgba(248,81,73,0.15);color:#f85149;">TS</div>
+        <div><div class="channel-name">TrainWithShubham</div><div class="channel-handle">@TrainWithShubham</div></div>
+        <div class="for-badge">India-Focused</div>
+      </div>
+      <div class="channel-desc">One of the best Indian DevOps channels. Roadmaps, live sessions, interview prep. Covers the India job market context specifically.</div>
+      <div class="channel-tags">
+        <div class="channel-tag">Roadmap</div><div class="channel-tag">Interviews</div><div class="channel-tag">Hindi</div><div class="channel-tag">Projects</div>
+      </div>
+    </div>
+
+    <div class="channel-card">
+      <div class="channel-header">
+        <div class="channel-avatar" style="background:rgba(0,212,170,0.1);color:#00d4aa;">FC</div>
+        <div><div class="channel-name">freeCodeCamp.org</div><div class="channel-handle">@freecodecamp</div></div>
+        <div class="for-badge">Long-Form</div>
+      </div>
+      <div class="channel-desc">3–8 hour complete courses on Docker, Kubernetes, CI/CD. High quality, completely free. Great when you want a structured single-sitting deep dive.</div>
+      <div class="channel-tags">
+        <div class="channel-tag">Full Courses</div><div class="channel-tag">Free</div><div class="channel-tag">Docker</div><div class="channel-tag">Kubernetes</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ RESOURCES PAGE ═══════════════ -->
+<div class="page" id="resources">
+  <div class="section-title">Documentation & Practice Platforms</div>
+  <div class="section-subtitle">Official docs, free labs, paid platforms, and communities — everything you'll actually use.</div>
+
+  <div class="res-section-title">// Official Documentation (Always Primary)</div>
+  <div class="res-list">
+    <a class="res-item" href="https://roadmap.sh/devops" target="_blank">
+      <div class="res-icon">🗺</div>
+      <div class="res-info"><div class="res-name">roadmap.sh/devops</div><div class="res-desc">Community-driven interactive DevOps roadmap — the canonical reference</div></div>
+      <div class="res-tag tag-free">Free</div>
+    </a>
+    <a class="res-item" href="https://kubernetes.io/docs/home/" target="_blank">
+      <div class="res-icon">⚓</div>
+      <div class="res-info"><div class="res-name">Kubernetes Official Docs</div><div class="res-desc">The only K8s source you need — open browser during CKA exam too</div></div>
+      <div class="res-tag tag-docs">Docs</div>
+    </a>
+    <a class="res-item" href="https://docs.docker.com" target="_blank">
+      <div class="res-icon">🐳</div>
+      <div class="res-info"><div class="res-name">Docker Official Docs</div><div class="res-desc">Reference for Dockerfile syntax, Docker Compose, networking</div></div>
+      <div class="res-tag tag-docs">Docs</div>
+    </a>
+    <a class="res-item" href="https://developer.hashicorp.com/terraform/docs" target="_blank">
+      <div class="res-icon">🏗</div>
+      <div class="res-info"><div class="res-name">Terraform Docs</div><div class="res-desc">Provider registry, syntax reference, and official tutorials</div></div>
+      <div class="res-tag tag-docs">Docs</div>
+    </a>
+    <a class="res-item" href="https://docs.aws.amazon.com" target="_blank">
+      <div class="res-icon">☁</div>
+      <div class="res-info"><div class="res-name">AWS Documentation</div><div class="res-desc">Complete reference for every AWS service — bookmark it</div></div>
+      <div class="res-tag tag-docs">Docs</div>
+    </a>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="res-section-title">// Free Practice Labs</div>
+  <div class="res-list">
+    <a class="res-item" href="https://killercoda.com" target="_blank">
+      <div class="res-icon">🧪</div>
+      <div class="res-info"><div class="res-name">Killercoda</div><div class="res-desc">Browser-based Linux, K8s, Docker labs — best free hands-on platform</div></div>
+      <div class="res-tag tag-free">Free</div>
+    </a>
+    <a class="res-item" href="https://labs.play-with-docker.com" target="_blank">
+      <div class="res-icon">🐳</div>
+      <div class="res-info"><div class="res-name">Play with Docker</div><div class="res-desc">Free 4-hour Docker environment in the browser, no install</div></div>
+      <div class="res-tag tag-free">Free</div>
+    </a>
+    <a class="res-item" href="https://labs.play-with-k8s.com" target="_blank">
+      <div class="res-icon">⚓</div>
+      <div class="res-info"><div class="res-name">Play with Kubernetes</div><div class="res-desc">Free multi-node K8s cluster in the browser for 4 hours</div></div>
+      <div class="res-tag tag-free">Free</div>
+    </a>
+    <a class="res-item" href="https://aws.amazon.com/free/" target="_blank">
+      <div class="res-icon">☁</div>
+      <div class="res-info"><div class="res-name">AWS Free Tier</div><div class="res-desc">12 months free EC2, S3, RDS, Lambda — always use real cloud over labs</div></div>
+      <div class="res-tag tag-free">Free</div>
+    </a>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="res-section-title">// Paid Platforms (Worth It)</div>
+  <div class="res-list">
+    <a class="res-item" href="https://kodekloud.com" target="_blank">
+      <div class="res-icon">🎓</div>
+      <div class="res-info"><div class="res-name">KodeKloud</div><div class="res-desc">Best DevOps learning platform with real hands-on labs. Essential for CKA/CKAD prep. ~$15/month</div></div>
+      <div class="res-tag tag-paid">Paid</div>
+    </a>
+    <a class="res-item" href="https://acloudguru.com" target="_blank">
+      <div class="res-icon">☁</div>
+      <div class="res-info"><div class="res-name">A Cloud Guru (Pluralsight)</div><div class="res-desc">AWS/Azure/GCP courses with sandboxed cloud labs — great for cert prep</div></div>
+      <div class="res-tag tag-paid">Paid</div>
+    </a>
+    <a class="res-item" href="https://www.udemy.com" target="_blank">
+      <div class="res-icon">📹</div>
+      <div class="res-info"><div class="res-name">Udemy</div><div class="res-desc">Mumshad Mannambeth's CKA course ($15 on sale) is the best cert prep course available</div></div>
+      <div class="res-tag tag-paid">Paid</div>
+    </a>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="res-section-title">// Communities & Stay Updated</div>
+  <div class="res-list">
+    <a class="res-item" href="https://www.reddit.com/r/devops/" target="_blank">
+      <div class="res-icon">💬</div>
+      <div class="res-info"><div class="res-name">r/devops — Reddit</div><div class="res-desc">700k+ members; real career advice, tool discussions, job threads</div></div>
+      <div class="res-tag tag-free">Free</div>
+    </a>
+    <a class="res-item" href="https://github.com/techiescamp/devops-projects" target="_blank">
+      <div class="res-icon">💻</div>
+      <div class="res-info"><div class="res-name">TechiesCamp DevOps Projects (GitHub)</div><div class="res-desc">Real-world projects repo with video walkthroughs for portfolio building</div></div>
+      <div class="res-tag tag-free">Free</div>
+    </a>
+    <a class="res-item" href="https://cncf.io" target="_blank">
+      <div class="res-icon">🌐</div>
+      <div class="res-info"><div class="res-name">CNCF (Cloud Native Computing Foundation)</div><div class="res-desc">Home of Kubernetes, Prometheus, ArgoCD — keep up with cloud-native ecosystem</div></div>
+      <div class="res-tag tag-free">Free</div>
+    </a>
+    <a class="res-item" href="https://sre.google/books/" target="_blank">
+      <div class="res-icon">📘</div>
+      <div class="res-info"><div class="res-name">Google SRE Book (Free Online)</div><div class="res-desc">Essential reading for senior DevOps roles — SLIs, SLOs, error budgets, on-call</div></div>
+      <div class="res-tag tag-free">Free</div>
+    </a>
+  </div>
+</div>
+
+<script>
+  function switchPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  function togglePhase(id) {
+    const el = document.getElementById(id);
+    el.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
