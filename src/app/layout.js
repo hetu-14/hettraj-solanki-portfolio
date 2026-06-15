@@ -16,7 +16,7 @@ const body = Manrope({
 export const metadata = {
   title: "Hetraj Solanki | Full-Stack Developer",
   description:
-    "A polished personal portfolio for Hetraj Solanki with selected work, skills, and contact details.",
+    "A modern dark portfolio for Hetraj Solanki, a full-stack developer focused on web apps, real-time systems, Android work, and DSA.",
 };
 
 export default function RootLayout({ children }) {

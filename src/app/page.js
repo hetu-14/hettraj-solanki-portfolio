@@ -1,412 +1,655 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
+
 const profile = {
   name: "Hetraj Solanki",
-  role: "Full-Stack Developer",
-  tagline:
-    "I design and ship clean web experiences with sharp visuals, fast interactions, and practical systems that scale.",
-  location: "India / Remote",
-  availability: "Open to freelance and full-time product work",
+  title: "Full Stack Developer & Problem Solver",
+  subtitle:
+    "Building scalable web applications, real-time systems, and innovative digital experiences.",
+  intro:
+    "I am a Computer Engineering graduate from LDRP Institute of Technology and Research, Gujarat, India. I build production-grade MERN stack apps, real-time products, and Android solutions with a strong focus on clarity, performance, and reliability.",
+  email: "hello@hetrajsolanki.dev",
+  phone: "+91 00000 00000",
+  github: "https://github.com/hetu-14",
+  linkedin: "https://www.linkedin.com/in/hetraj-solanki-06615b256/",
+  leetcode: null,
+  codechef: null,
+  codeforces: null,
 };
 
 const stats = [
-  { value: "15+", label: "shipped projects" },
-  { value: "4", label: "focus areas" },
-  { value: "100%", label: "responsive builds" },
+  { value: "3+", label: "Major Projects" },
+  { value: "Runner-Up", label: "Hackathon Result" },
+  { value: "SIH", label: "National Finalist" },
+  { value: "DSA", label: "Competitive Focus" },
 ];
 
-const featuredProjects = [
+const skillGroups = [
   {
-    name: "Portfolio Engine",
-    category: "Brand site",
-    summary:
-      "A premium personal portfolio layout with bold typography, layered depth, and quick anchor-based navigation.",
-    impact: "Built for a strong first impression on desktop and mobile.",
+    title: "Frontend",
+    items: ["React.js", "HTML", "CSS", "JavaScript", "Tailwind CSS"],
   },
   {
-    name: "Task Flow Dashboard",
-    category: "Productivity",
-    summary:
-      "A dense but readable dashboard concept that turns daily activity, priorities, and progress into one glance.",
-    impact: "Keeps important decisions visible without overwhelming the screen.",
+    title: "Backend",
+    items: ["Node.js", "Express.js", "REST APIs"],
   },
   {
-    name: "Studio Landing Page",
-    category: "Marketing",
-    summary:
-      "A conversion-focused landing page with social proof, service highlights, and a clear contact path.",
-    impact: "Optimized for lead capture without sacrificing visual quality.",
-  },
-];
-
-const capabilities = [
-  "Next.js",
-  "React",
-  "Tailwind CSS",
-  "App Router",
-  "Responsive UI",
-  "Animation",
-  "Design Systems",
-  "Accessibility",
-];
-
-const process = [
-  {
-    step: "01",
-    title: "Shape the brief",
-    body: "We define the audience, message, and primary action before anything is designed.",
+    title: "Database",
+    items: ["MongoDB", "MySQL", "Firebase"],
   },
   {
-    step: "02",
-    title: "Build the system",
-    body: "Colors, type, spacing, and component patterns are locked into a consistent visual language.",
+    title: "Languages",
+    items: ["JavaScript", "C++", "Java", "SQL"],
   },
   {
-    step: "03",
-    title: "Ship and refine",
-    body: "The final site is tuned for motion, responsiveness, and practical deployment on Vercel.",
+    title: "Tools",
+    items: ["Git", "GitHub", "VS Code", "Android Studio", "Postman"],
+  },
+  {
+    title: "Other",
+    items: ["Socket.IO", "JWT Authentication", "MVC Architecture"],
   },
 ];
 
-const timeline = [
+const projects = [
   {
-    year: "Now",
-    title: "Freelance and product builds",
-    body: "Focused on front-end craft, clean architecture, and polished delivery.",
+    name: "Placement Board",
+    type: "Web Platform",
+    description:
+      "A placement management platform that helps students track opportunities, company visits, and learning resources.",
+    features: [
+      "Company listings",
+      "Placement records",
+      "Student applications",
+      "Search functionality",
+      "Learning resources",
+    ],
+    stack: "React.js, Node.js, Express.js, MongoDB, Socket.IO",
+    links: [
+      { label: "GitHub", href: "https://github.com/hetu-14" },
+      { label: "Live Demo", href: null },
+    ],
   },
   {
-    year: "2025",
-    title: "Full-stack portfolio work",
-    body: "Built apps, dashboards, and communication-driven interfaces with modern tooling.",
+    name: "Pay & Park",
+    type: "Android App",
+    description:
+      "An Android application designed to simplify parking management through real-time slot booking and secure payments.",
+    features: [
+      "Real-time slot selection",
+      "QR code integration",
+      "Payment gateway",
+      "Reservation system",
+      "Admin dashboard",
+      "Firebase authentication",
+    ],
+    stack: "Android Studio, Firebase",
+    links: [
+      { label: "GitHub", href: "https://github.com/hetu-14" },
+      { label: "APK / Demo", href: null },
+    ],
   },
   {
-    year: "2024",
-    title: "Web fundamentals",
-    body: "Strengthened project structure, accessibility, and responsive implementation habits.",
+    name: "Real-Time Chess Platform",
+    type: "Realtime App",
+    description:
+      "A multiplayer chess application supporting live gameplay, in-game communication, and match history.",
+    features: [
+      "Live multiplayer matches",
+      "Game rooms",
+      "Authentication",
+      "In-game chat",
+      "Match history",
+    ],
+    stack: "Node.js, Socket.IO, MongoDB, JavaScript",
+    links: [
+      { label: "GitHub", href: "https://github.com/hetu-14" },
+      { label: "Live Demo", href: null },
+    ],
   },
 ];
 
-function Icon({ children, title }) {
+const achievements = [
+  {
+    title: "SSIP Hackathon 2023",
+    body: "Team leader and State Level Runner-Up.",
+  },
+  {
+    title: "Smart India Hackathon",
+    body: "National Level Finalist with production-oriented problem solving.",
+  },
+  {
+    title: "Competitive Programming",
+    body: "CodeChef rating 1220+ with active problem solving on LeetCode and Codeforces.",
+  },
+];
+
+const education = [
+  {
+    title: "LDRP Institute of Technology and Research",
+    body: "Bachelor of Technology in Computer Engineering",
+    meta: "CGPA: 7.72",
+  },
+  {
+    title: "Higher Secondary Education",
+    body: "Science Stream",
+    meta: "76.6%",
+  },
+];
+
+const differentials = [
+  "Quick Learner",
+  "Self Motivated",
+  "Team Leader",
+  "Strong Problem Solver",
+  "Real Project Experience",
+  "Continuous Learner",
+];
+
+const motionItem = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } },
+};
+
+const motionGroup = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08 } },
+};
+
+function SectionTitle({ eyebrow, title, body, align = "left" }) {
   return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      className="h-5 w-5 shrink-0"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <title>{title}</title>
-      {children}
-    </svg>
+    <div className={align === "center" ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
+      <p className="text-xs font-semibold uppercase tracking-[0.34em] text-cyan-300/80">
+        {eyebrow}
+      </p>
+      <h2 className="mt-3 font-display text-3xl tracking-[-0.05em] text-white sm:text-4xl">
+        {title}
+      </h2>
+      {body ? <p className="mt-4 text-sm leading-7 text-slate-300 sm:text-base">{body}</p> : null}
+    </div>
   );
 }
 
 function ArrowIcon() {
   return (
-    <Icon title="Arrow">
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M5 12h14" />
       <path d="m12 5 7 7-7 7" />
-    </Icon>
+    </svg>
   );
 }
 
 function SparkIcon() {
   return (
-    <Icon title="Spark">
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z" />
-    </Icon>
-  );
-}
-
-function CodeIcon() {
-  return (
-    <Icon title="Code">
-      <path d="m9 18-6-6 6-6" />
-      <path d="m15 6 6 6-6 6" />
-      <path d="M14 4 10 20" />
-    </Icon>
+    </svg>
   );
 }
 
 function MailIcon() {
   return (
-    <Icon title="Mail">
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="m4 7 8 6 8-6" />
       <rect x="3" y="5" width="18" height="14" rx="2" />
-    </Icon>
+    </svg>
+  );
+}
+
+function ExternalTile({ label, href }) {
+  const baseClass =
+    "rounded-[1.3rem] border border-white/10 bg-black/20 px-4 py-3 text-sm font-medium transition";
+
+  if (!href) {
+    return (
+      <div className={`${baseClass} cursor-default text-slate-500`}>
+        {label}
+      </div>
+    );
+  }
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className={`${baseClass} text-slate-200 hover:border-cyan-400/30 hover:bg-cyan-400/10 hover:text-white`}
+    >
+      {label}
+    </a>
   );
 }
 
 export default function Home() {
+  const reduceMotion = useReducedMotion();
+  const heroInitial = reduceMotion ? { opacity: 1 } : { opacity: 0, y: 18 };
+  const heroAnimate = reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 };
+
   return (
-    <main className="min-h-dvh overflow-x-clip bg-[radial-gradient(circle_at_top_left,_rgba(217,119,6,0.2),_transparent_28%),radial-gradient(circle_at_85%_10%,_rgba(15,118,110,0.16),_transparent_22%),linear-gradient(180deg,_#f7f1e8_0%,_#f5efe3_48%,_#efe4d2_100%)] text-stone-950">
-      <div className="mx-auto flex w-full max-w-7xl flex-col px-5 pb-16 pt-4 sm:px-8 lg:px-10">
-        <header className="sticky top-3 z-30 mb-8 rounded-full border border-black/10 bg-[#fffaf0]/85 px-4 py-3 shadow-[0_18px_60px_rgba(27,24,20,0.12)] backdrop-blur-xl">
+    <main className="min-h-dvh overflow-x-clip bg-[radial-gradient(circle_at_top,_rgba(34,211,238,0.18),_transparent_28%),radial-gradient(circle_at_80%_10%,_rgba(59,130,246,0.16),_transparent_24%),radial-gradient(circle_at_20%_80%,_rgba(245,158,11,0.12),_transparent_25%),linear-gradient(180deg,_#020617_0%,_#0b1020_55%,_#050816_100%)] text-white">
+      <div className="pointer-events-none fixed inset-0 opacity-[0.18] [background-image:linear-gradient(rgba(255,255,255,0.09)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.09)_1px,transparent_1px)] [background-size:36px_36px]" />
+      <div className="relative mx-auto flex w-full max-w-7xl flex-col px-5 pb-16 pt-4 sm:px-8 lg:px-10">
+        <motion.header
+          initial={heroInitial}
+          animate={heroAnimate}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="sticky top-3 z-30 mb-8 rounded-full border border-white/10 bg-white/8 px-4 py-3 backdrop-blur-xl shadow-[0_18px_70px_rgba(2,6,23,0.55)]"
+        >
           <nav className="flex flex-wrap items-center justify-between gap-3">
-            <a href="#top" className="text-sm font-semibold tracking-[0.3em] uppercase">
-              {profile.name}
+            <a href="#top" className="text-sm font-semibold tracking-[0.34em] uppercase text-white">
+              Hetraj Solanki
             </a>
-            <div className="flex flex-wrap items-center gap-2 text-sm text-stone-700">
-              <a className="rounded-full px-3 py-1 transition hover:bg-stone-950 hover:text-white" href="#work">
-                Work
-              </a>
-              <a className="rounded-full px-3 py-1 transition hover:bg-stone-950 hover:text-white" href="#about">
-                About
-              </a>
-              <a className="rounded-full px-3 py-1 transition hover:bg-stone-950 hover:text-white" href="#process">
-                Process
-              </a>
-              <a className="rounded-full px-3 py-1 transition hover:bg-stone-950 hover:text-white" href="#contact">
-                Contact
-              </a>
+            <div className="flex flex-wrap items-center gap-2 text-sm text-slate-300">
+              {["about", "skills", "projects", "achievements", "education", "contact"].map((item) => (
+                <a
+                  key={item}
+                  href={`#${item}`}
+                  className="rounded-full px-3 py-1 transition hover:bg-white/10 hover:text-white"
+                >
+                  {item}
+                </a>
+              ))}
             </div>
           </nav>
-        </header>
+        </motion.header>
 
-        <section
+        <motion.section
           id="top"
-          className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end"
+          variants={motionGroup}
+          initial="hidden"
+          animate="show"
+          className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end"
         >
-          <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/70 px-4 py-2 text-xs font-medium uppercase tracking-[0.24em] text-stone-700 shadow-sm">
+          <motion.div variants={motionItem} className="space-y-6">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-4 py-2 text-xs font-medium uppercase tracking-[0.28em] text-cyan-200 backdrop-blur">
               <SparkIcon />
-              Portfolio 2026
+              Modern Developer Portfolio
             </div>
 
             <div className="space-y-4">
-              <h1 className="font-display max-w-4xl text-5xl leading-[0.92] tracking-[-0.05em] text-balance sm:text-6xl lg:text-8xl">
-                Product-minded interfaces with a premium feel.
+              <h1 className="font-display max-w-4xl text-5xl leading-[0.92] tracking-[-0.06em] text-balance sm:text-6xl lg:text-8xl">
+                {profile.title}
               </h1>
-              <p className="max-w-2xl text-base leading-7 text-stone-700 sm:text-lg">
-                {profile.tagline}
+              <p className="max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
+                {profile.subtitle}
+              </p>
+              <p className="max-w-2xl text-sm leading-7 text-slate-400 sm:text-base">
+                {profile.intro}
               </p>
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
-              <a
-                href="#work"
-                className="inline-flex items-center gap-2 rounded-full bg-stone-950 px-5 py-3 text-sm font-medium text-white transition hover:-translate-y-0.5 hover:bg-stone-800"
+              <motion.a
+                whileHover={reduceMotion ? undefined : { y: -2, scale: 1.01 }}
+                whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+                href="#projects"
+                className="inline-flex items-center gap-2 rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 shadow-[0_18px_40px_rgba(34,211,238,0.28)] transition"
               >
-                View selected work
+                View Projects
                 <ArrowIcon />
-              </a>
+              </motion.a>
+              <motion.a
+                whileHover={reduceMotion ? undefined : { y: -2, scale: 1.01 }}
+                whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+                href="#contact"
+                className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/8 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/12"
+              >
+                Contact Me
+                <MailIcon />
+              </motion.a>
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 rounded-full border border-stone-950/15 bg-white/70 px-5 py-3 text-sm font-medium text-stone-950 transition hover:-translate-y-0.5 hover:border-stone-950/30 hover:bg-white"
+                className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-transparent px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-white/24 hover:bg-white/6"
               >
-                Start a project
-                <MailIcon />
+                Download Resume
               </a>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-3">
+            <motion.div variants={motionGroup} className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
               {stats.map((stat) => (
-                <article
+                <motion.article
                   key={stat.label}
-                  className="rounded-3xl border border-white/70 bg-white/75 p-4 shadow-[0_18px_40px_rgba(33,26,16,0.08)] backdrop-blur"
+                  variants={motionItem}
+                  className="rounded-[1.5rem] border border-white/10 bg-white/8 p-4 backdrop-blur-xl shadow-[0_18px_50px_rgba(2,6,23,0.34)]"
                 >
-                  <div className="text-3xl font-semibold tracking-[-0.04em]">{stat.value}</div>
-                  <p className="mt-1 text-sm text-stone-600">{stat.label}</p>
-                </article>
+                  <div className="text-3xl font-semibold tracking-[-0.05em] text-white">{stat.value}</div>
+                  <p className="mt-1 text-sm text-slate-400">{stat.label}</p>
+                </motion.article>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <aside className="relative">
-            <div className="absolute inset-0 -z-10 translate-x-4 translate-y-4 rounded-[2rem] bg-stone-950/10 blur-2xl" />
-            <div className="overflow-hidden rounded-[2rem] border border-white/70 bg-[#111111] p-6 text-white shadow-[0_25px_80px_rgba(16,12,8,0.26)]">
+          <motion.aside
+            variants={motionItem}
+            className="relative"
+          >
+            <div className="absolute inset-0 -z-10 translate-x-4 translate-y-4 rounded-[2rem] bg-cyan-400/10 blur-2xl" />
+            <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/8 p-6 shadow-[0_28px_90px_rgba(2,6,23,0.58)] backdrop-blur-2xl">
               <div className="flex items-start justify-between gap-4">
                 <div className="space-y-2">
-                  <p className="text-sm uppercase tracking-[0.3em] text-white/55">Studio card</p>
-                  <h2 className="font-display text-3xl tracking-[-0.04em]">
-                    {profile.name}
-                  </h2>
-                  <p className="max-w-xs text-sm leading-6 text-white/72">{profile.role}</p>
+                  <p className="text-xs uppercase tracking-[0.32em] text-cyan-200/70">Profile snapshot</p>
+                  <h2 className="font-display text-3xl tracking-[-0.05em]">{profile.name}</h2>
+                  <p className="max-w-xs text-sm leading-6 text-slate-300">
+                    Computer Engineering graduate focused on full-stack engineering, real-time apps, Android development, and DSA.
+                  </p>
                 </div>
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#d97706] text-lg font-bold text-white">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-br from-cyan-400 to-blue-500 text-lg font-bold text-slate-950">
                   HS
                 </div>
               </div>
 
               <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-4">
-                  <p className="text-xs uppercase tracking-[0.24em] text-white/50">Location</p>
-                  <p className="mt-3 text-lg font-medium">{profile.location}</p>
+                <div className="rounded-[1.5rem] border border-white/10 bg-black/20 p-4">
+                  <p className="text-xs uppercase tracking-[0.24em] text-slate-400">Current goal</p>
+                  <p className="mt-3 text-lg font-medium leading-7 text-white">
+                    Become a highly skilled Software Engineer and master DSA and System Design.
+                  </p>
                 </div>
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-4">
-                  <p className="text-xs uppercase tracking-[0.24em] text-white/50">Availability</p>
-                  <p className="mt-3 text-lg font-medium">{profile.availability}</p>
+                <div className="rounded-[1.5rem] border border-white/10 bg-black/20 p-4">
+                  <p className="text-xs uppercase tracking-[0.24em] text-slate-400">Focus stack</p>
+                  <p className="mt-3 text-lg font-medium leading-7 text-white">
+                    React, Node.js, Express.js, MongoDB, Socket.IO, Firebase, Android Studio.
+                  </p>
                 </div>
               </div>
 
-              <div className="mt-4 rounded-[1.75rem] border border-white/10 bg-gradient-to-br from-white/10 to-white/5 p-4">
+              <div className="mt-4 rounded-[1.5rem] border border-white/10 bg-gradient-to-br from-white/10 to-white/5 p-4">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs uppercase tracking-[0.24em] text-white/50">Current stack</p>
-                  <CodeIcon />
+                  <p className="text-xs uppercase tracking-[0.24em] text-slate-400">Availability</p>
+                  <span className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-xs font-semibold text-emerald-300">
+                    Open for opportunities
+                  </span>
                 </div>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {capabilities.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-sm text-white/85"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
+                <p className="mt-3 text-sm leading-7 text-slate-300">
+                  Based in Gujarat, India and open to building production-grade web applications, real-time systems, and portfolio collaborations.
+                </p>
               </div>
             </div>
-          </aside>
-        </section>
+          </motion.aside>
+        </motion.section>
 
-        <section id="work" className="mt-20 space-y-6">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="text-sm font-medium uppercase tracking-[0.28em] text-stone-600">Selected work</p>
-              <h2 className="font-display mt-2 text-3xl tracking-[-0.04em] sm:text-4xl">
-                A portfolio that shows range without looking busy.
-              </h2>
-            </div>
-            <p className="max-w-xl text-sm leading-6 text-stone-600">
-              Each card is built to make the story easy to scan: what it is, why it matters, and the kind of value it creates.
-            </p>
-          </div>
-
-          <div className="grid gap-4 lg:grid-cols-3">
-            {featuredProjects.map((project, index) => (
-              <article
-                key={project.name}
-                className="group rounded-[1.75rem] border border-stone-950/10 bg-white/75 p-5 shadow-[0_18px_40px_rgba(33,26,16,0.06)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(33,26,16,0.12)]"
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <span className="rounded-full border border-stone-950/10 px-3 py-1 text-xs uppercase tracking-[0.24em] text-stone-600">
-                    {project.category}
-                  </span>
-                  <span className="text-sm text-stone-500">0{index + 1}</span>
-                </div>
-                <h3 className="mt-5 font-[family-name:var(--font-display)] text-2xl tracking-[-0.03em]">
-                  {project.name}
-                </h3>
-                <p className="mt-3 text-sm leading-6 text-stone-700">{project.summary}</p>
-                <div className="mt-6 border-t border-stone-950/10 pt-4 text-sm text-stone-600">
-                  {project.impact}
-                </div>
-                <div className="mt-6 flex items-center gap-2 text-sm font-medium text-stone-950">
-                  Explore concept
-                  <span className="transition group-hover:translate-x-1">
-                    <ArrowIcon />
-                  </span>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section id="about" className="mt-20 grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
-          <article className="rounded-[2rem] border border-stone-950/10 bg-[#fffaf0]/80 p-6 shadow-[0_18px_40px_rgba(33,26,16,0.07)] backdrop-blur">
-            <p className="text-sm font-medium uppercase tracking-[0.28em] text-stone-600">About</p>
-            <h2 className="font-display mt-3 text-3xl tracking-[-0.04em] sm:text-4xl">
-              Clear structure, strong typography, and practical frontend decisions.
-            </h2>
-            <p className="mt-4 text-sm leading-7 text-stone-700">
-              This portfolio is designed to feel confident on first glance and stay useful when someone actually needs to scan your work,
-              your stack, and how to contact you.
-            </p>
+        <motion.section
+          id="about"
+          variants={motionGroup}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          className="mt-20 grid gap-6 lg:grid-cols-[0.92fr_1.08fr]"
+        >
+          <motion.article variants={motionItem} className="rounded-[2rem] border border-white/10 bg-white/8 p-6 backdrop-blur-2xl shadow-[0_24px_70px_rgba(2,6,23,0.38)]">
+            <SectionTitle
+              eyebrow="About"
+              title="I enjoy building efficient, user-friendly applications that solve real-world problems."
+              body="My journey started with programming fundamentals and evolved into complete full-stack projects. I like work that is practical, fast, and well structured."
+            />
             <div className="mt-6 flex flex-wrap gap-2">
-              {["Product UI", "Web apps", "Landing pages", "Motion"].map((item) => (
+              {differentials.map((item) => (
                 <span
                   key={item}
-                  className="rounded-full border border-stone-950/10 bg-white/80 px-3 py-1.5 text-sm text-stone-700"
+                  className="rounded-full border border-white/10 bg-black/20 px-3 py-1.5 text-sm text-slate-200"
                 >
                   {item}
                 </span>
               ))}
             </div>
-          </article>
+          </motion.article>
 
-          <article className="rounded-[2rem] border border-stone-950/10 bg-white/80 p-6 shadow-[0_18px_40px_rgba(33,26,16,0.06)] backdrop-blur">
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <p className="text-sm font-medium uppercase tracking-[0.28em] text-stone-600">Timeline</p>
-                <h2 className="font-display mt-3 text-3xl tracking-[-0.04em]">
-                  What I’ve been building
-                </h2>
-              </div>
-              <div className="hidden rounded-full border border-stone-950/10 bg-stone-950 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-white sm:block">
-                Current focus
+          <motion.article variants={motionItem} className="rounded-[2rem] border border-white/10 bg-white/8 p-6 backdrop-blur-2xl shadow-[0_24px_70px_rgba(2,6,23,0.38)]">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <SectionTitle
+                eyebrow="Why me"
+                title="Technical depth with real project delivery."
+                body="I focus on clear architecture, maintainable code, and interfaces that feel complete on day one."
+              />
+              <div className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">
+                Learning fast
               </div>
             </div>
-
-            <div className="mt-6 space-y-4">
-              {timeline.map((item) => (
-                <div key={item.year} className="grid gap-3 rounded-[1.5rem] border border-stone-950/10 p-4 sm:grid-cols-[90px_1fr]">
-                  <div className="text-sm font-semibold uppercase tracking-[0.24em] text-[#d97706]">
-                    {item.year}
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold">{item.title}</h3>
-                    <p className="mt-1 text-sm leading-6 text-stone-600">{item.body}</p>
-                  </div>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {[
+                ["Web", "Full Stack Development, Backend Engineering, Real-Time Applications"],
+                ["Life", "Movies, web series, and cricket when I am not coding"],
+              ].map(([title, text]) => (
+                <div key={title} className="rounded-[1.5rem] border border-white/10 bg-black/20 p-4">
+                  <p className="text-xs uppercase tracking-[0.24em] text-slate-400">{title}</p>
+                  <p className="mt-3 text-sm leading-7 text-slate-300">{text}</p>
                 </div>
               ))}
             </div>
-          </article>
-        </section>
+          </motion.article>
+        </motion.section>
 
-        <section id="process" className="mt-20 space-y-6">
-          <div>
-            <p className="text-sm font-medium uppercase tracking-[0.28em] text-stone-600">Process</p>
-            <h2 className="font-display mt-2 text-3xl tracking-[-0.04em] sm:text-4xl">
-              Straightforward workflow, no unnecessary noise.
-            </h2>
-          </div>
+        <motion.section
+          id="skills"
+          variants={motionGroup}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          className="mt-20 space-y-6"
+        >
+          <motion.div variants={motionItem}>
+            <SectionTitle
+              eyebrow="Skills"
+              title="The stack I use to ship end-to-end."
+              body="Grouped by how I actually build: frontend, backend, data, language, and tools."
+            />
+          </motion.div>
 
-          <div className="grid gap-4 lg:grid-cols-3">
-            {process.map((item) => (
-              <article
-                key={item.step}
-                className="rounded-[1.75rem] border border-stone-950/10 bg-white/75 p-5 shadow-[0_18px_40px_rgba(33,26,16,0.06)] backdrop-blur"
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {skillGroups.map((group) => (
+              <motion.article
+                key={group.title}
+                variants={motionItem}
+                className="rounded-[1.75rem] border border-white/10 bg-white/8 p-5 backdrop-blur-2xl shadow-[0_24px_70px_rgba(2,6,23,0.34)]"
               >
-                <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#d97706]">
-                  {item.step}
-                </p>
-                <h3 className="mt-4 text-xl font-semibold">{item.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-stone-600">{item.body}</p>
-              </article>
+                <h3 className="text-lg font-semibold text-white">{group.title}</h3>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {group.items.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-white/10 bg-black/20 px-3 py-1.5 text-sm text-slate-200"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </motion.article>
             ))}
           </div>
-        </section>
+        </motion.section>
 
-        <section className="mt-20 rounded-[2rem] border border-stone-950/10 bg-stone-950 px-6 py-8 text-white shadow-[0_24px_80px_rgba(16,12,8,0.3)] sm:px-8">
-          <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
-            <div>
-              <p className="text-sm font-medium uppercase tracking-[0.28em] text-white/55">Contact</p>
-              <h2 className="font-display mt-3 text-3xl tracking-[-0.04em] sm:text-4xl">
-                Want a portfolio that looks more deliberate than template-made?
-              </h2>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/72">
-                Send over your name, role, and links. I can swap the placeholder copy, add your real projects, and tailor the site to your niche.
-              </p>
-            </div>
-            <a
-              id="contact"
-              href="mailto:hello@example.com"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#d97706] px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[#c26b04]"
-            >
-              hello@example.com
-              <MailIcon />
-            </a>
+        <motion.section
+          id="projects"
+          variants={motionGroup}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.18 }}
+          className="mt-20 space-y-6"
+        >
+          <motion.div variants={motionItem}>
+            <SectionTitle
+              eyebrow="Projects"
+              title="Featured builds that show range across web and mobile."
+              body="Each project card explains what it does, the features it contains, and the stack behind it."
+            />
+          </motion.div>
+
+          <div className="grid gap-4 xl:grid-cols-3">
+            {projects.map((project) => (
+              <motion.article
+                key={project.name}
+                variants={motionItem}
+                whileHover={reduceMotion ? undefined : { y: -4, scale: 1.01 }}
+                className="group rounded-[1.8rem] border border-white/10 bg-white/8 p-5 backdrop-blur-2xl shadow-[0_24px_70px_rgba(2,6,23,0.34)] transition"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">
+                    {project.type}
+                  </span>
+                  <span className="text-xs uppercase tracking-[0.22em] text-slate-500">{project.name}</span>
+                </div>
+
+                <h3 className="mt-5 font-display text-2xl tracking-[-0.04em] text-white">
+                  {project.name}
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-slate-300">{project.description}</p>
+
+                <div className="mt-5 rounded-[1.4rem] border border-white/10 bg-black/20 p-4">
+                  <p className="text-xs uppercase tracking-[0.24em] text-slate-400">Key features</p>
+                  <ul className="mt-3 grid gap-2 text-sm text-slate-300">
+                    {project.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-2">
+                        <span className="mt-[0.35rem] h-1.5 w-1.5 rounded-full bg-cyan-300" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mt-5 text-sm leading-7 text-slate-400">
+                  <span className="font-semibold text-slate-200">Tech stack: </span>
+                  {project.stack}
+                </div>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {project.links.map((link) => (
+                    <div key={link.label} className="inline-flex items-center gap-2">
+                      {link.href ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/20 px-3 py-1.5 text-sm text-slate-200 transition hover:border-cyan-400/30 hover:bg-cyan-400/10 hover:text-white"
+                        >
+                          {link.label}
+                          <ArrowIcon />
+                        </a>
+                      ) : (
+                        <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/20 px-3 py-1.5 text-sm text-slate-500">
+                          {link.label} pending
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </motion.article>
+            ))}
           </div>
-        </section>
+        </motion.section>
 
-        <footer className="mt-10 flex flex-col gap-3 border-t border-stone-950/10 pt-6 text-sm text-stone-600 sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © 2026 {profile.name}. Built for a polished GitHub + Vercel launch.
-          </p>
-          <p className="text-stone-500">
-            Edit the profile object in <code>src/app/page.js</code> to personalize names and links.
-          </p>
+        <motion.section
+          id="achievements"
+          variants={motionGroup}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.18 }}
+          className="mt-20 space-y-6"
+        >
+          <motion.div variants={motionItem}>
+            <SectionTitle
+              eyebrow="Achievements"
+              title="Proof points from hackathons and competitive programming."
+              body="These are the signal items I would put front and center for recruiters and collaborators."
+            />
+          </motion.div>
+
+          <div className="grid gap-4 lg:grid-cols-3">
+            {achievements.map((item) => (
+              <motion.article
+                key={item.title}
+                variants={motionItem}
+                className="rounded-[1.75rem] border border-white/10 bg-white/8 p-5 backdrop-blur-2xl shadow-[0_24px_70px_rgba(2,6,23,0.34)]"
+              >
+                <p className="text-xs uppercase tracking-[0.26em] text-cyan-200/80">{item.title}</p>
+                <p className="mt-4 text-sm leading-7 text-slate-300">{item.body}</p>
+              </motion.article>
+            ))}
+          </div>
+        </motion.section>
+
+        <motion.section
+          id="education"
+          variants={motionGroup}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.18 }}
+          className="mt-20 grid gap-6 lg:grid-cols-[0.92fr_1.08fr]"
+        >
+          <motion.article variants={motionItem} className="rounded-[2rem] border border-white/10 bg-white/8 p-6 backdrop-blur-2xl shadow-[0_24px_70px_rgba(2,6,23,0.34)]">
+            <SectionTitle
+              eyebrow="Education"
+              title="Formal foundation, practical output."
+              body="Academic background and project work both matter here, so I keep them together."
+            />
+          </motion.article>
+
+          <motion.div variants={motionItem} className="grid gap-4">
+            {education.map((item) => (
+              <article
+                key={item.title}
+                className="rounded-[1.75rem] border border-white/10 bg-white/8 p-5 backdrop-blur-2xl shadow-[0_24px_70px_rgba(2,6,23,0.34)]"
+              >
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-7 text-slate-300">{item.body}</p>
+                  </div>
+                  <span className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-sm text-cyan-200">
+                    {item.meta}
+                  </span>
+                </div>
+              </article>
+            ))}
+          </motion.div>
+        </motion.section>
+
+        <motion.section
+          id="contact"
+          variants={motionGroup}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.16 }}
+          className="mt-20 rounded-[2rem] border border-white/10 bg-white/8 px-6 py-8 backdrop-blur-2xl shadow-[0_28px_90px_rgba(2,6,23,0.45)] sm:px-8"
+        >
+          <motion.div variants={motionItem} className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr] lg:items-start">
+            <div>
+              <SectionTitle
+                eyebrow="Contact"
+                title="If you need a focused builder, these are the best ways to reach me."
+                body="Email and phone are the fastest, while GitHub and LinkedIn show the work itself."
+              />
+            </div>
+
+            <div className="grid gap-4">
+              <a
+                href={`mailto:${profile.email}`}
+                className="rounded-[1.5rem] border border-white/10 bg-black/20 p-4 transition hover:border-cyan-400/30 hover:bg-cyan-400/10"
+              >
+                <p className="text-xs uppercase tracking-[0.24em] text-slate-400">Email</p>
+                <p className="mt-2 text-lg font-semibold text-white">{profile.email}</p>
+              </a>
+              <a
+                href={`tel:${profile.phone.replace(/\s+/g, "")}`}
+                className="rounded-[1.5rem] border border-white/10 bg-black/20 p-4 transition hover:border-cyan-400/30 hover:bg-cyan-400/10"
+              >
+                <p className="text-xs uppercase tracking-[0.24em] text-slate-400">Phone</p>
+                <p className="mt-2 text-lg font-semibold text-white">{profile.phone}</p>
+              </a>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <ExternalTile label="LinkedIn" href={profile.linkedin} />
+                <ExternalTile label="GitHub" href={profile.github} />
+                <ExternalTile label="LeetCode" href={profile.leetcode} />
+                <ExternalTile label="CodeChef" href={profile.codechef} />
+                <ExternalTile label="Codeforces" href={profile.codeforces} />
+              </div>
+            </div>
+          </motion.div>
+        </motion.section>
+
+        <footer className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-6 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+          <p>Built for Hetraj Solanki. Update the profile object in src/app/page.js for final links and resume.</p>
+          <p>Designed for GitHub and Vercel deployment.</p>
         </footer>
       </div>
     </main>
